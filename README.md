@@ -782,3 +782,189 @@ A **Process Control Block (PCB)** is like a **record book** 📖 that stores eve
 **S-P-P-C-C-M-A-I-F** → **"Some People Play Chess, Computers Make All Intelligent Files"**  
 
 This helps recall the **9 key elements** of a PCB easily! ✅
+
+
+
+
+---Some in Khata----
+
+
+**Operating System Exam Revision Notes**
+
+---
+
+## **CPU Scheduling Basics**
+
+**CPU Scheduling:**
+- Decides which process gets the CPU next.
+- Goal: Keep CPU busy and maximize efficiency.
+
+**CPU-I/O Burst Cycle:**
+- Processes alternate between CPU bursts and I/O waits.
+- Scheduler selects next process when current one waits or finishes.
+
+**Scheduling Situations:**
+1. Running → Waiting (no choice, must switch)
+2. Running → Ready (can preempt)
+3. Waiting → Ready (can preempt)
+4. Process terminates (must switch)
+
+**Preemptive vs Non-Preemptive Scheduling:**
+- **Preemptive:** OS can interrupt running process.
+- **Non-Preemptive:** Process runs till completion or wait.
+
+**Dispatcher:**
+- Gives control of CPU to selected process.
+- Time delay to switch is called **Dispatch Latency**.
+- Types of context switches: **Voluntary** (process yields), **Nonvoluntary** (preempted).
+
+---
+
+## **Scheduling Criteria**
+
+- **CPU Utilization:** Keep CPU as busy as possible (ideal: 40-90%).
+- **Throughput:** Number of processes completed per unit time.
+- **Turnaround Time:** Completion Time – Arrival Time
+- **Waiting Time:** Turnaround Time – Burst Time
+- **Response Time:** Time from submission to first response.
+
+**Goal:**
+- Maximize: CPU Utilization, Throughput
+- Minimize: Turnaround Time, Waiting Time, Response Time
+
+---
+
+## **Need for CPU Scheduling**
+
+- Avoid CPU idle time.
+- Improve system efficiency.
+- Ensure fair access to CPU.
+- Handle multiple I/O-bound and CPU-bound processes.
+
+---
+
+## **CPU Scheduling Terms**
+
+- **Arrival Time:** When process enters ready queue.
+- **Completion Time:** When process finishes.
+- **Burst Time:** Total CPU time required.
+- **Turnaround Time:** Completion Time − Arrival Time
+- **Waiting Time:** Turnaround Time − Burst Time
+
+---
+
+## **Types of Scheduling**
+
+**Preemptive:**
+- CPU can be taken away.
+- Example: Round Robin
+
+**Non-Preemptive:**
+- Process keeps CPU till completion or wait.
+- Example: FCFS, Non-preemptive SJF
+
+---
+
+## **First Come First Serve (FCFS)**
+
+- Non-preemptive.
+- Processes served in arrival order.
+- Simple but can lead to long waiting (convoy effect).
+
+---
+
+## **Preemptive Shortest Job First (SRTF)** - Example
+
+- Pick process with shortest remaining time.
+- Preempt if a new process has shorter burst.
+
+**Example with P1, P2, P3, P4**
+- Gantt: P2 → P1 → P3 → P4 → ...
+- Avg TAT: 7.2, Avg WT: 2.6
+
+---
+
+## **Round Robin (RR)**
+
+- Preemptive with time quantum (e.g. 4ms).
+- Each process gets CPU for fixed slice.
+- Fair for all, good for interactive systems.
+- Too small quantum = too many context switches.
+
+---
+
+## **Threads**
+
+**Thread:** Smallest unit of CPU execution.
+- Contains ID, PC, Registers, Stack.
+- Shares code, data, and OS resources with other threads in same process.
+
+**Benefits of Multithreading:**
+1. **Responsiveness:** UI stays responsive during long tasks.
+2. **Resource Sharing:** Threads share memory and files.
+3. **Economy:** Cheaper than creating processes.
+4. **Scalability:** Runs efficiently on multicore systems.
+
+**Thread vs Process:**
+| Feature          | Process             | Thread                |
+|------------------|----------------------|------------------------|
+| Heavyweight      | Yes                  | No                     |
+| System Calls     | Required             | Not required           |
+| Memory Sharing   | No                   | Yes                    |
+| Context Switch   | Slower               | Faster                 |
+| Parallel Tasks   | One at a time        | Multiple in parallel   |
+
+---
+
+## **Types of Threads**
+
+**User-Level Threads (ULT):**
+- Managed in user space.
+- Fast, but kernel doesn't see them.
+- If one thread blocks, all do.
+
+**Kernel-Level Threads (KLT):**
+- Managed by OS kernel.
+- Slower, but supports parallelism and better control.
+
+**Comparison Table:**
+| Feature           | ULT                  | KLT                   |
+|-------------------|-----------------------|------------------------|
+| Managed by        | Application           | Kernel                 |
+| Blocking Impact   | Entire process blocks | Only that thread blocks|
+| Context Switch    | Fast                  | Slower                 |
+| Parallelism       | No                    | Yes                    |
+
+---
+
+## **Multithreading Models**
+
+**1. Many-to-One:**
+- Many user threads → One kernel thread.
+- No parallelism.
+
+**2. One-to-One:**
+- One user thread → One kernel thread.
+- Supports parallelism.
+- More resource usage.
+
+**3. Many-to-Many:**
+- Many user threads → Many (or fewer) kernel threads.
+- Efficient + scalable.
+- Supports blocking and parallel execution.
+
+---
+
+## **Thread Libraries**
+
+- Provide APIs to create/manage threads.
+
+**Two Types:**
+1. **User-level library:** Fast, but no kernel support.
+2. **Kernel-level library:** Uses system calls; more control.
+
+**Popular Libraries:**
+- **Pthreads (POSIX)** - Unix/Linux
+- **Windows Threads** - Windows
+- **Java Threads** - Java (on JVM)
+
